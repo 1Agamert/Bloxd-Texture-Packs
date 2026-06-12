@@ -1,1 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1agamert Packs | مستودع التكسر باكس</title>
+    <style>
+        :root {
+            --bg-color: #0d0e12;
+            --card-bg: #16171d;
+            --accent-color: #4f46e5;
+            --accent-hover: #6366f1;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(180deg, #1e1b4b 0%, #0d0e12 100%);
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 1px solid #23242a;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* شبكة عرض حزم الأنسجة */
+        .packs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pack-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #23242a;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .pack-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .pack-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid #23242a;
+        }
+
+        .pack-info {
+            padding: 20px;
+        }
+
+        .pack-title {
+            margin: 0 0 8px 0;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+        .pack-creator {
+            font-size: 0.85rem;
+            color: var(--accent-hover);
+            margin-bottom: 12px;
+        }
+
+        .pack-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            height: 45px;
+            overflow: hidden;
+        }
+
+        .btn-copy {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+        }
+
+        .btn-copy:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* إشعار منبثق عند النسخ */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>1agamert Bloxd Packs</h1>
+        <p>مستودع التكسر باكس الرسمي لجمهور 1agamert. انسخ الرابط المباشر وضعها في اللعبة فوراً!</p>
+    </header>
+
+    <div class="container">
+        <div class="packs-grid">
+
+            <div class="pack-card">
+                <img src="https://via.placeholder.com/400x200" alt="Pack Preview" class="pack-img">
+                <div class="pack-info">
+                    <h3 class="pack-title">Neon PvP Pack v1</h3>
+                    <div class="pack-creator">بواسطة: 1agamert</div>
+                    <p class="pack-desc">تكسر باك نيون رائع يزيد من سلاسة اللعب وتقليل الـ Lag أثناء مواجهات الـ PvP.</p>
+                    <button class="btn-copy" onclick="copyPack('https://example.com/neon-pack.png')">نسخ رابط الباك</button>
+                </div>
+            </div>
+
+            <div class="pack-card">
+                <img src="https://via.placeholder.com/400x200" alt="Pack Preview" class="pack-img">
+                <div class="pack-info">
+                    <h3 class="pack-title">Ultra Realistic 64x</h3>
+                    <div class="pack-creator">بواسطة: 1agamert</div>
+                    <p class="pack-desc">باك واقعي يغير شكل البلوكات لتصبح بدقة عالية ومريحة للعين في السيرفرات.</p>
+                    <button class="btn-copy" onclick="copyPack('https://example.com/realistic-pack.png')">نسخ رابط الباك</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="toast" id="copyToast">تم نسخ رابط التكسر باك بنجاح! 🎉</div>
+
+    <script>
+        function copyPack(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                const toast = document.getElementById('copyToast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+            }).catch(err => {
+                alert('حدث خطأ أثناء النسخ التلقائي!');
+            });
+        }
+    </script>
+</body>
+</html>
